@@ -1,10 +1,10 @@
 # d3-contour
 
-This library computes contour polygons by applying [marching squares](https://en.wikipedia.org/wiki/Marching_squares) to a rectangular array of numeric values. For example, here is Maungawhau’s topology (the classic `volcano` dataset and `terrain.colors` from R):
+这个库将 [marching squares](https://en.wikipedia.org/wiki/Marching_squares) 算法应用到数值的矩形数组来计算等高线多边形. 例如, 这是 `Maungawhau` 的拓扑结构(经典的 `volcano` 数据集和来自 `R` 语言的 `terrain.colors`):
 
 [<img alt="Contour Plot" src="https://raw.githubusercontent.com/d3/d3-contour/master/img/volcano.gif" width="420" height="295">](https://bl.ocks.org/mbostock/4241134)
 
-For each [threshold value](#contours_thresholds), the [contour generator](#_contours) constructs a GeoJSON MultiPolygon geometry object representing the area where the input values are greater than or equal to the threshold value. The geometry is in planar coordinates, where ⟨<i>i</i> + 0.5, <i>j</i> + 0.5⟩ corresponds to element <i>i</i> + <i>jn</i> in the input values array. Here is an example that loads a GeoTIFF of surface temperatures, and another that blurs a noisy monochrome PNG to produce smooth contours of cloud fraction:
+对于每个 [threshold value(阈值)](#contours_thresholds), [contour generator(等高线生成器)](#_contours) 构造一个 `GeoJSON` 多边形几何对象来表示输入值大于或等于阈值的区域. 几何是平面坐标, 其中 ⟨<i>i</i> + 0.5, <i>j</i> + 0.5⟩ 对应于输入值数组中的元素 <i>i</i> + <i>jn</i>. 下面是一个加载地球表面温度数据 `GeoTIFF` 例子, 另一个模糊了嘈杂的单色 `PNG`, 以生成平滑的云量轮廓:
 
 [<img alt="GeoTiff Contours" src="https://raw.githubusercontent.com/d3/d3-contour/master/img/temperature.png" width="420" height="219">](https://bl.ocks.org/mbostock/4886c227038510f1c103ce305bef6fcc)
 [<img alt="Cloud Contours" src="https://raw.githubusercontent.com/d3/d3-contour/master/img/clouds.png" width="420" height="219">](https://bl.ocks.org/mbostock/818053c76d79d4841790c332656bf9da)
