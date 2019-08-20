@@ -1,28 +1,28 @@
 # d3-contour
 
-这个库将 [marching squares](https://en.wikipedia.org/wiki/Marching_squares) 算法应用到数值的矩形数组来计算等高线多边形. 例如, 这是 `Maungawhau` 的拓扑结构(经典的 `volcano` 数据集和来自 `R` 语言的 `terrain.colors`):
+这个库将 [marching squares](https://en.wikipedia.org/wiki/Marching_squares) 算法应用到数值的矩形数组来计算等值线多边形. 例如, 这是 `Maungawhau` 的拓扑结构(经典的 `volcano` 数据集和来自 `R` 语言的 `terrain.colors`):
 
 [<img alt="Contour Plot" src="https://raw.githubusercontent.com/d3/d3-contour/master/img/volcano.gif" width="420" height="295">](https://bl.ocks.org/mbostock/4241134)
 
-对于每个 [threshold value(阈值)](#contours_thresholds), [contour generator(等高线生成器)](#_contours) 构造一个 `GeoJSON` 多边形几何对象来表示输入值大于或等于阈值的区域. 几何是平面坐标, 其中 ⟨<i>i</i> + 0.5, <i>j</i> + 0.5⟩ 对应于输入值数组中的元素 <i>i</i> + <i>jn</i>. 下面是一个加载地球表面温度数据 `GeoTIFF` 例子, 另一个模糊了嘈杂的单色 `PNG`, 以生成平滑的云量轮廓:
+对于每个 [threshold value(阈值)](#contours_thresholds), [contour generator(等值线生成器)](#_contours) 构造一个 `GeoJSON` 多边形几何对象来表示输入值大于或等于阈值的区域. 几何是平面坐标, 其中 ⟨<i>i</i> + 0.5, <i>j</i> + 0.5⟩ 对应于输入值数组中的元素 <i>i</i> + <i>jn</i>. 下面是一个加载地球表面温度数据 `GeoTIFF` 例子, 另一个模糊了嘈杂的单色 `PNG`, 以生成平滑的云量轮廓:
 
 [<img alt="GeoTiff Contours" src="https://raw.githubusercontent.com/d3/d3-contour/master/img/temperature.png" width="420" height="219">](https://bl.ocks.org/mbostock/4886c227038510f1c103ce305bef6fcc)
 [<img alt="Cloud Contours" src="https://raw.githubusercontent.com/d3/d3-contour/master/img/clouds.png" width="420" height="219">](https://bl.ocks.org/mbostock/818053c76d79d4841790c332656bf9da)
 
-Since the contour polygons are GeoJSON, you can transform and display them using standard tools; see [d3.geoPath](https://github.com/d3/d3-geo/blob/master/README.md#geoPath), [d3.geoProject](https://github.com/d3/d3-geo-projection/blob/master/README.md#geoProject) and [d3.geoStitch](https://github.com/d3/d3-geo-projection/blob/master/README.md#geoStitch), for example. Here the above contours of surface temperature are displayed in the Natural Earth projection:
+因为等值线多边形是 `GeoJSON`, 你可以使用标准工具去转换和显示它们; 参考 [d3.geoPath](https://github.com/d3/d3-geo/blob/master/README.md#geoPath), [d3.geoProject](https://github.com/d3/d3-geo-projection/blob/master/README.md#geoProject) 和 [d3.geoStitch](https://github.com/d3/d3-geo-projection/blob/master/README.md#geoStitch), 例如. 上面的地表温度等值线显示在自然地球投影中:
 
 [<img alt="GeoTiff Contours II" src="https://raw.githubusercontent.com/d3/d3-contour/master/img/reprojection.png" width="420" height="219">](https://bl.ocks.org/mbostock/83c0be21dba7602ee14982b020b12f51)
 
-Contour plots can also visualize continuous functions by sampling. Here is the Goldstein–Price function (a test function for global optimization) and a trippy animation of *sin*(*x* + *y*)*sin*(*x* - *y*):
+等值线图也可以通过采样实现连续函数的可视化. 下面是 `Goldstein–Price` 函数(一个用于全局优化的测试函数)和 `sin(x + y)sin(x - y)` 的动画:
 
 [<img alt="Contour Plot II" src="https://raw.githubusercontent.com/d3/d3-contour/master/img/goldstein-price.png" width="420" height="219">](https://bl.ocks.org/mbostock/f48ff9c1af4d637c9a518727f5fdfef5)
 [<img alt="Contour Plot III" src="https://raw.githubusercontent.com/d3/d3-contour/master/img/sin-cos.png" width="420" height="219">](https://bl.ocks.org/mbostock/bf2f5f02b62b5b3bb92ae1b59b53da36)
 
-Contours can also show the [estimated density](#density-estimation) of point clouds, which is especially useful to avoid overplotting in large datasets. This library implements fast two-dimensional kernel density estimation; see [d3.contourDensity](#contourDensity). Here is a scatterplot showing the relationship between the idle duration and eruption duration for Old Faithful:
+等值线还可以显示点云的[estimated density(估计密度)](#density-estimation), 对于避免在大数据集中重叠绘制特别有用. 这个库实现了快速的二维核密度估计; 参考 [d3.contourDensity](#contourDensity). 下面是一张散点图, 显示了 `Old Faithful(老忠实泉, 位于黄石公园)` 的停顿时间和喷发时间之间的关系:
 
 [<img alt="Density Contours" src="https://raw.githubusercontent.com/d3/d3-contour/master/img/faithful.png" width="420" height="219">](https://bl.ocks.org/mbostock/e3f4376d54e02d5d43ae32a7cf0e6aa9)
 
-And here is a density contour plot showing the relationship between the weight and price of 53,940 diamonds:
+下面是一张密度等高值图, 统计了 `53,940` 颗钻石的重量和价格之间的关系:
 
 [<img alt="Density Contours" src="https://raw.githubusercontent.com/d3/d3-contour/master/img/diamonds.png" width="420" height="420">](https://bl.ocks.org/mbostock/7f5f22524bd1d824dd53c535eda0187f)
 
