@@ -28,7 +28,7 @@
 
 ## Installing
 
-If you use NPM, `npm install d3-contour`. Otherwise, download the [latest release](https://github.com/d3/d3-contour/releases/latest). You can also load directly from [d3js.org](https://d3js.org), either as a [standalone library](https://d3js.org/d3-contour.v1.min.js) or as part of [D3 4.0](https://github.com/d3/d3). AMD, CommonJS, and vanilla environments are supported. In vanilla, a `d3` global is exported:
+`NPM` 安装: `npm install d3-contour`. 此外还可以下载 [最新发行版](https://github.com/d3/d3-contour/releases/latest). 可以直接从 [d3js.org](https://d3js.org) 以 [标准独立库](https://d3js.org/d3-contour.v1.min.js) 或作为 [D3](https://github.com/d3/d3) 的一部分直接引入. 支持 `AMD`, `CommonJS` 以及基础的标签引入形式. 如果使用标签引入, 则会暴露全局 `d3`:
 
 ```html
 <script src="https://d3js.org/d3-contour.v1.min.js"></script>
@@ -57,19 +57,19 @@ function goldsteinPrice(x, y) {
 </script>
 ```
 
-[Try d3-contour in your browser.](https://tonicdev.com/npm/d3-contour)
+[在浏览器中测试 `d3-contour`](https://tonicdev.com/npm/d3-contour)
 
 ## API Reference
 
 <a name="contours" href="#contours">#</a> d3.<b>contours</b>() [<>](https://github.com/d3/d3-contour/blob/master/src/contours.js "Source")
 
-Constructs a new contour generator with the default settings.
+使用默认的设置构建一个新的等值线生成器.
 
 <a name="_contours" href="#_contours">#</a> <i>contours</i>(<i>values</i>) [<>](https://github.com/d3/d3-contour/blob/master/src/contours.js "Source")
 
-Computes the contours for the given array of *values*, returning an array of [GeoJSON](http://geojson.org/geojson-spec.html) [MultiPolygon](http://geojson.org/geojson-spec.html#multipolygon) [geometry objects](http://geojson.org/geojson-spec.html#geometry-objects). Each geometry object represents the area where the input <i>values</i> are greater than or equal to the corresponding [threshold value](#contours_thresholds); the threshold value for each geometry object is exposed as <i>geometry</i>.value.
+计算给定 *values* 数组的等值线, 返回 [GeoJSON](http://geojson.org/geojson-spec.html) [MultiPolygon](http://geojson.org/geojson-spec.html#multipolygon) [几何对象](http://geojson.org/geojson-spec.html#geometry-objects) 数组. 每个几何对象代表一个区域, 这个区域中的 <i>values</i> 大于等于对应的 [阈值](#contours_thresholds); 每个几何对象对应的阈值以 <i>geometry</i>.value 的形式暴露.
 
-The input *values* must be an array of length <i>n</i>×<i>m</i> where [<i>n</i>, <i>m</i>] is the contour generator’s [size](#contours_size); furthermore, each <i>values</i>[<i>i</i> + <i>jn</i>] must represent the value at the position ⟨<i>i</i>, <i>j</i>⟩. For example, to construct a 256×256 grid for the [Goldstein–Price function](https://en.wikipedia.org/wiki/Test_functions_for_optimization) where -2 ≤ <i>x</i> ≤ 2 and -2 ≤ <i>y</i> ≤ 1:
+输入的 *values* 必须以长度为 <i>n</i>×<i>m</i> 的数组形式给出, 其中 [<i>n</i>, <i>m</i>] 为等值线生成器的 [size](#contours_size); 此外, 每个 <i>values</i>[<i>i</i> + <i>jn</i>] 必须表示位于 ⟨<i>i</i>, <i>j</i>⟩ 处的值. 例如, 构造一个 `256 x 256` 的网格的 [Goldstein–Price](https://en.wikipedia.org/wiki/Test_functions_for_optimization) 函数, 其中 -2 ≤ <i>x</i> ≤ 2 and -2 ≤ <i>y</i> ≤ 1:
 
 ```js
 var n = 256, m = 256, values = new Array(n * m);
@@ -85,45 +85,45 @@ function goldsteinPrice(x, y) {
 }
 ```
 
-The returned geometry objects are typically passed to [d3.geoPath](https://github.com/d3/d3-geo/blob/master/README.md#geoPath) to display, using null or [d3.geoIdentity](https://github.com/d3/d3-geo/blob/master/README.md#geoIdentity) as the associated projection.
+返回的几何对象通常被传递给 [d3.geoPath](https://github.com/d3/d3-geo/blob/master/README.md#geoPath) 去显示, 不使用或者使用 [d3.geoIdentity](https://github.com/d3/d3-geo/blob/master/README.md#geoIdentity) 作为相关投影.
 
 <a name="contours_contour" href="#contours_contour">#</a> <i>contours</i>.<b>contour</b>(<i>values</i>, <i>threshold</i>) [<>](https://github.com/d3/d3-contour/blob/master/src/contours.js "Source")
 
-Computes a single contour, returning a [GeoJSON](http://geojson.org/geojson-spec.html) [MultiPolygon](http://geojson.org/geojson-spec.html#multipolygon) [geometry object](http://geojson.org/geojson-spec.html#geometry-objects) representing the area where the input <i>values</i> are greater than or equal to the given [*threshold* value](#contours_thresholds); the threshold value for each geometry object is exposed as <i>geometry</i>.value.
+计算一个单个的等值线, 返回一个 [GeoJSON](http://geojson.org/geojson-spec.html) [MultiPolygon](http://geojson.org/geojson-spec.html#multipolygon) [几何对象](http://geojson.org/geojson-spec.html#geometry-objects) 表示输入 <i>values</i> 大于或等于给定的 [*阈值*](#contours_thresholds); 阈值以 <i>geometry</i>.value 的形式暴露.
 
-The input *values* must be an array of length <i>n</i>×<i>m</i> where [<i>n</i>, <i>m</i>] is the contour generator’s [size](#contours_size); furthermore, each <i>values</i>[<i>i</i> + <i>jn</i>] must represent the value at the position ⟨<i>i</i>, <i>j</i>⟩. See [*contours*](#_contours) for an example.
+输入的 *values* 必须以长度为 <i>n</i>×<i>m</i> 的数组形式给出, 其中 [<i>n</i>, <i>m</i>] 为等值线生成器的 [size](#contours_size); 此外, 每个 <i>values</i>[<i>i</i> + <i>jn</i>] 必须表示位于 ⟨<i>i</i>, <i>j</i>⟩ 处的值. 参考 [*contours*](#_contours) 的示例.
 
 <a name="contours_size" href="#contours_size">#</a> <i>contours</i>.<b>size</b>([<i>size</i>]) [<>](https://github.com/d3/d3-contour/blob/master/src/contours.js "Source")
 
-If *size* is specified, sets the expected size of the input *values* grid to the [contour generator](#_contour) and returns the contour generator. The *size* is specified as an array \[<i>n</i>, <i>m</i>\] where <i>n</i> is the number of columns in the grid and <i>m</i> is the number of rows; *n* and *m* must be positive integers. If *size* is not specified, returns the current size which defaults to [1, 1].
+如果指定了 *size* 则将当前输入 *values* 的期望值设置为指定的大小并返回等值线生成器. *size* 以 [<i>n</i>, <i>m</i>\] 的形式指定, 其中 <i>n</i> 为网格的列数, <i>m</i> 为行数; *n* 和 *m* 必须为正整数. 如果没有指定 *size* 则返回当前默认大小, 默认为 [1, 1].
 
 <a name="contours_smooth" href="#contours_smooth">#</a> <i>contours</i>.<b>smooth</b>([<i>smooth</i>]) [<>](https://github.com/d3/d3-contour/blob/master/src/contours.js "Source")
 
-If *smooth* is specified, sets whether or not the generated contour polygons are smoothed using linear interpolation. If *smooth* is not specified, returns the current smoothing flag, which defaults to true.
+如果指定了 *smooth* 则设置是否在生成等值线时使用线性插值. 如果没有指定 *smooth* 则返回当前的平滑标识, 默认为 `true`.
 
 <a name="contours_thresholds" href="#contours_thresholds">#</a> <i>contours</i>.<b>thresholds</b>([<i>thresholds</i>]) [<>](https://github.com/d3/d3-contour/blob/master/src/contours.js "Source")
 
-If *thresholds* is specified, sets the threshold generator to the specified function or array and returns this contour generator. If *thresholds* is not specified, returns the current threshold generator, which by default implements [Sturges’ formula](https://github.com/d3/d3-array/blob/master/README.md#thresholdSturges).
+如果指定了 *thresholds* 则将阈值生成器设置为指定的函数或数组并返回当前等值线生成器. 如果没有指定 *thresholds* 则返回当前阈值生成器, 默认情况下阈值生成器的实现方法为 [Sturges’ formula](https://github.com/d3/d3-array/blob/master/README.md#thresholdSturges).
 
-Thresholds are defined as an array of values [*x0*, *x1*, …]. The first [generated contour](#_contour) corresponds to the area where the input values are greater than or equal to *x0*; the second contour corresponds to the area where the input values are greater than or equal to *x1*, and so on. Thus, there is exactly one generated MultiPolygon geometry object for each specified threshold value; the threshold value is exposed as <i>geometry</i>.value.
+阈值以 [*x0*, *x1*, …] 数组的形式定义. 第一个 [等值线](#_contour) 表示输入值大于或等于 *x0* 的部分, 第二个表示输入值大于或等于 *x1* 的部分, 以此类推. 这样, 对于每个指定的阈值, 都对应一个生成的 `MultiPolygon` 几何对象, 阈值以 <i>geometry</i>.value 的形式暴露.
 
-If a *count* is specified instead of an array of *thresholds*, then the input values’ [extent](https://github.com/d3/d3-array/blob/master/README.md#extent) will be uniformly divided into approximately *count* bins; see [d3.ticks](https://github.com/d3/d3-array/blob/master/README.md#ticks).
+如果使用 *count* 代表阈值数组, 则输入值的 [extent(范围)](https://github.com/d3/d3-array/blob/master/README.md#extent) 会被均匀的分为 *count* 个分箱; 可以参考 [d3.ticks](https://github.com/d3/d3-array/blob/master/README.md#ticks).
 
 ## Density Estimation
 
 <a name="contourDensity" href="#contourDensity">#</a> d3.<b>contourDensity</b>() [<>](https://github.com/d3/d3-contour/blob/master/src/density.js "Source")
 
-Constructs a new density estimator with the default settings.
+使用默认的设置构造一个新的密度估计函数.
 
 <a name="_density" href="#_density">#</a> <i>density</i>(<i>data</i>) [<>](https://github.com/d3/d3-contour/blob/master/src/density.js "Source")
 
-Estimates the density contours for the given array of *data*, returning an array of [GeoJSON](http://geojson.org/geojson-spec.html) [MultiPolygon](http://geojson.org/geojson-spec.html#multipolygon) [geometry objects](http://geojson.org/geojson-spec.html#geometry-objects). Each geometry object represents the area where the estimated number of points per square pixel is greater than or equal to the corresponding [threshold value](#density_thresholds); the threshold value for each geometry object is exposed as <i>geometry</i>.value. The returned geometry objects are typically passed to [d3.geoPath](https://github.com/d3/d3-geo/blob/master/README.md#geoPath) to display, using null or [d3.geoIdentity](https://github.com/d3/d3-geo/blob/master/README.md#geoIdentity) as the associated projection. See also [d3.contours](#contours).
+估计给定数据数组的密度轮廓, 返回 [GeoJSON](http://geojson.org/geojson-spec.html) [MultiPolygon](http://geojson.org/geojson-spec.html#multipolygon) [几何对象](http://geojson.org/geojson-spec.html#geometry-objects) 数组. 每个几何对象表示每平方像素估计点数大于或等于相应阈值的区域; 每个几何对象对应的阈值以 <i>geometry</i>.value 的形式暴露. 返回的几何对象通常被传递给 [d3.geoPath](https://github.com/d3/d3-geo/blob/master/README.md#geoPath) 去显示, 不使用或者使用 [d3.geoIdentity](https://github.com/d3/d3-geo/blob/master/README.md#geoIdentity) 作为相关投影. 参考 [d3.contours](#contours).
 
-The *x*- and *y*-coordinate for each data point are computed using [*density*.x](#density_x) and [*density*.y](#density_y). In addition, [*density*.weight](#density_weight) indicates the relative contribution of each data point (default 1). The generated contours are only accurate within the estimator’s [defined size](#density_size).
+使用 [*density*.x](#density_x) 和 [*density*.y](#density_y) 计算每个数据点的 *x*- 和 *y*- 坐标. 此外, [*density*.weight](#density_weight) 表示每个数据点的权重(默认为 1). 生成的等值线轮廓只在估计函数的 [defined size](#density_size) 范围内是精确的.
 
 <a name="density_x" href="#density_x">#</a> <i>density</i>.<b>x</b>([<i>x</i>]) [<>](https://github.com/d3/d3-contour/blob/master/src/density.js "Source")
 
-If *x* is specified, sets the *x*-coordinate accessor. If *x* is not specified, returns the current *x*-coordinate accessor, which defaults to:
+如果指定了 *x* 则设置 *x*-坐标访问器. 如果没有指定 *x* 则返回当前的 *x*-坐标访问器, 默认为:
 
 ```js
 function x(d) {
@@ -133,7 +133,7 @@ function x(d) {
 
 <a name="density_y" href="#density_y">#</a> <i>density</i>.<b>y</b>([<i>y</i>]) [<>](https://github.com/d3/d3-contour/blob/master/src/density.js "Source")
 
-If *y* is specified, sets the *y*-coordinate accessor. If *y* is not specified, returns the current *y*-coordinate accessor, which defaults to:
+如果指定了 *y* 则设置 *y*-坐标访问器. 如果没有指定 *y* 则返回当前的 *y*-坐标访问器, 默认为:
 
 ```js
 function y(d) {
@@ -143,7 +143,7 @@ function y(d) {
 
 <a name="density_weight" href="#density_weight">#</a> <i>density</i>.<b>weight</b>([<i>weight</i>]) [<>](https://github.com/d3/d3-contour/blob/master/src/density.js "Source")
 
-If *weight* is specified, sets the accessor for point weights. If *weight* is not specified, returns the current point weight accessor, which defaults to:
+如果指定了 *weight* 则设置点的权重访问器. 如果没有指定 *weight* 则返回默认的点的权重访问器, 默认为:
 
 ```js
 function weight() {
@@ -153,20 +153,20 @@ function weight() {
 
 <a name="density_size" href="#density_size">#</a> <i>density</i>.<b>size</b>([<i>size</i>]) [<>](https://github.com/d3/d3-contour/blob/master/src/density.js "Source")
 
-If *size* is specified, sets the size of the density estimator to the specified bounds and returns the estimator. The *size* is specified as an array \[<i>width</i>, <i>height</i>\], where <i>width</i> is the maximum *x*-value and <i>height</i> is the maximum *y*-value. If *size* is not specified, returns the current size which defaults to [960, 500]. The [estimated density contours](#_density) are only accurate within the defined size.
+如果指定了 *size* 则将当前密度估计函数的大小设置为指定的界限并返回估计函数. *size* 以 [<i>width</i>, <i>height</i>\] 的形式指定, 其中 <i>width</i> 为最大 *x*-值, <i>height</i> 为最大 *y*-值. 如果没有指定 *size* 则返回当前默认大小, 默认为 [960, 500]. [estimated density contours(估计的密度轮廓)](#_density) 只在定义的大小范围内准确.
 
 <a name="density_cellSize" href="#density_cellSize">#</a> <i>density</i>.<b>cellSize</b>([<i>cellSize</i>]) [<>](https://github.com/d3/d3-contour/blob/master/src/density.js "Source")
 
-If *cellSize* is specified, sets the size of individual cells in the underlying bin grid to the specified positive integer and returns the estimator. If *cellSize* is not specified, returns the current cell size, which defaults to 4. The cell size is rounded down to the nearest power of two. Smaller cells produce more detailed contour polygons, but are more expensive to compute.
+如果指定了 *cellSize* (单元格大小), 则将底层分箱网格中单个单元格的大小设置为指定的正整数并返回估计函数. 如果没有指定 *cellSize* 则返回当前的单元格大小, 默认为 `4`. 单元格大小四舍五入到最近的 `2` 的幂次方. 单元格越小轮廓越精细, 但是计算代价也越大.
 
 <a name="density_thresholds" href="#density_thresholds">#</a> <i>density</i>.<b>thresholds</b>([<i>thresholds</i>]) [<>](https://github.com/d3/d3-contour/blob/master/src/density.js "Source")
 
-If *thresholds* is specified, sets the threshold generator to the specified function or array and returns this contour generator. If *thresholds* is not specified, returns the current threshold generator, which by default generates about twenty nicely-rounded density thresholds.
+如果指定了 *thresholds* 则将阈值生成器设置为指定的函数或数组并返回等值线生成器. 如果 *thresholds* 没有指定则返回当前的阈值生成器, 默认会生成 `20` 个四舍五入的密度阈值.
 
-Thresholds are defined as an array of values [*x0*, *x1*, …]. The first [generated density contour](#_density) corresponds to the area where the estimated density is greater than or equal to *x0*; the second contour corresponds to the area where the estimated density is greater than or equal to *x1*, and so on. Thus, there is exactly one generated MultiPolygon geometry object for each specified threshold value; the threshold value is exposed as <i>geometry</i>.value. The first value *x0* should typically be greater than zero.
+阈值以 [*x0*, *x1*, …] 数组的形式定义. 第一个 [密度等值线](#_density) 表示估计值大于或等于 *x0* 的部分, 第二个表示估计值大于或等于 *x1* 的部分, 以此类推. 这样, 对于每个指定的阈值, 都对应一个生成的 `MultiPolygon` 几何对象, 阈值以 <i>geometry</i>.value 的形式暴露. 第一个阈值应该大于 `0`.
 
-If a *count* is specified instead of an array of *thresholds*, then approximately *count* uniformly-spaced nicely-rounded thresholds will be generated; see [d3.ticks](https://github.com/d3/d3-array/blob/master/README.md#ticks).
+如果使用 *count* 代表阈值数组, 则会近似生成 *count* 个阈值; 可以参考 [d3.ticks](https://github.com/d3/d3-array/blob/master/README.md#ticks).
 
 <a name="density_bandwidth" href="#density_bandwidth">#</a> <i>density</i>.<b>bandwidth</b>([<i>bandwidth</i>]) [<>](https://github.com/d3/d3-contour/blob/master/src/density.js "Source")
 
-If *bandwidth* is specified, sets the bandwidth (the standard deviation) of the Gaussian kernel and returns the estimate. If *bandwidth* is not specified, returns the current bandwidth, which defaults to 20.4939…. The specified *bandwidth* is currently rounded to the nearest supported value by this implementation, and must be nonnegative.
+如果指定了 *bandwidth*, 则设置 `Gaussian` 核密度估计的宽带(标准差)并返回估计函数. 如果 *bandwidth* 没有指定则返回当前的带宽, 默认为 `20.4939…`, 这个实现目前将指定的带宽四舍五入到最近的支持值, 并且必须是非负的.
